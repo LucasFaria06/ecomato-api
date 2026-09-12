@@ -22,8 +22,8 @@ CREATE TABLE usuarios (
 
 -- Inserir dados de teste
 INSERT INTO usuarios (nome, email, senha, role) VALUES
-('Raphael Admin', 'raphael@ecomato.com.br', '$2y$10$YourHashedPasswordHere', 'admin'),
-('Teste User', 'teste@ecomato.com.br', '$2y$10$YourHashedPasswordHere', 'user');
+('Raphael Admin', 'raphael@industriamodelo.com.br', '$2y$10$tnZOJndEDWQDrRLYeqmb/e6HOIJneg6Dd1fxgUHuCau/4oLAGJNRi', 'admin'),
+('Teste User', 'teste@industriamodelo.com.br', '$2y$10$tnZOJndEDWQDrRLYeqmb/e6HOIJneg6Dd1fxgUHuCau/4oLAGJNRi', 'user');
 
 -- ========================================
 -- TABELA 2: residuos
