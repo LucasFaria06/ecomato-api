@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoMato - Gestão Ambiental Inteligente</title>
+
+    <!-- Fonte Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Chart.js para Gráficos -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Configuração de Cores Oficiais EcoMato no Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'eco-forest': '#166534',
+                        'eco-main': '#22C55E',
+                        'eco-light': '#DCFCE7',
+                        'eco-bg': '#F8FAFC',
+                        'eco-text': '#1E293B',
+                        'eco-muted': '#64748B',
+                        'eco-warn': '#F59E0B',
+                        'eco-error': '#DC2626',
+                        'eco-info': '#2563EB',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8FAFC;
+            color: #1E293B;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background-color: #CBD5E1;
+            border-radius: 9999px;
+        }
+    </style>
+</head>
+<body class="bg-eco-bg text-eco-text antialiased min-h-screen">
+
+<!-- ========================================== -->
+<!-- 1. TELA DE LOGIN                           -->
+<!-- ========================================== -->
+<div id="view-login" class="min-h-screen grid grid-cols-1 lg:grid-cols-12">
+    <!-- Coluna Esquerda (Design Institucional/Sustentável) -->
+    <div class="lg:col-span-5 bg-eco-forest text-white p-8 lg:p-12 flex flex-col justify-between relative overflow-hidden">
+        <div class="absolute -top-24 -left-24 w-96 h-96 bg-white/5 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-eco-main/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <!-- Topo: Logo -->
+        <div class="z-10 flex items-center gap-3">
+            <div class="w-10 h-10 bg-eco-main rounded-xl flex items-center justify-center text-eco-forest font-bold shadow-lg">
+                <i data-lucide="leaf" class="w-6 h-6 text-white"></i>
+            </div>
+            <span class="text-2xl font-bold tracking-tight text-white">EcoMato</span>
+        </div>
+
+        <!-- Centro: Ilustração Abstrata & Slogan -->
+        <div class="z-10 my-12">
+            <div class="mb-8 relative max-w-sm mx-auto">
+                <svg viewBox="0 0 400 300" class="w-full h-auto drop-shadow-xl" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 250 C 100 220, 200 280, 400 240 L 400 300 L 0 300 Z" fill="#2563EB" opacity="0.3"/>
+                    <path d="M0 265 C 150 240, 250 290, 400 260 L 400 300 L 0 300 Z" fill="#2563EB" opacity="0.5"/>
+                    <circle cx="80" cy="180" r="45" fill="#22C55E" opacity="0.8"/>
+                    <circle cx="120" cy="190" r="35" fill="#166534"/>
+                    <circle cx="320" cy="190" r="50" fill="#22C55E" opacity="0.9"/>
+                    <circle cx="280" cy="200" r="35" fill="#15803D"/>
+                    <rect x="160" y="140" width="80" height="90" rx="4" fill="#ffffff" opacity="0.9"/>
+                    <polygon points="160,140 200,100 240,140" fill="#22C55E"/>
+                    <rect x="180" y="160" width="15" height="25" rx="2" fill="#1E293B"/>
+                    <rect x="205" y="160" width="15" height="25" rx="2" fill="#1E293B"/>
+                    <line x1="170" y1="125" x2="230" y2="125" stroke="#2563EB" stroke-width="4"/>
+                    <path d="M 60 100 Q 80 70 110 90 Q 90 120 60 100" fill="#DCFCE7"/>
+                    <path d="M 300 100 Q 320 70 350 90 Q 330 120 300 100" fill="#DCFCE7" opacity="0.7"/>
+                </svg>
+            </div>
+            <h1 class="text-3xl lg:text-4xl font-bold leading-tight mb-4">
+                Gestão ambiental inteligente para a indústria mato-grossense
+            </h1>
+            <p class="text-eco-light text-opacity-90 font-light text-base lg:text-lg">
+                Controle de indicadores ESG, gestão de resíduos, consumo hídrico e licenças em uma única plataforma corporativa.
+            </p>
+        </div>
+
+        <div class="z-10 text-xs text-green-200/70">
+            &copy; 2026 EcoMato Gestão Ambiental. Todos os direitos reservados.
+        </div>
+    </div>
+
+    <!-- Coluna Direita (Formulário de Login) -->
+    <div class="lg:col-span-7 flex items-center justify-center p-6 lg:p-16 bg-white">
+        <div class="w-full max-w-md space-y-8">
+            <div>
+                <h2 class="text-2xl lg:text-3xl font-bold text-eco-text">Acesse sua conta</h2>
+                <p class="mt-2 text-sm text-eco-muted">Entre com suas credenciais para gerenciar sua indústria.</p>
+            </div>
+
+            <form onsubmit="realizarLogin(event)" class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-eco-text mb-2">E-mail corporativo</label>
+                    <div class="relative">
+              <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-eco-muted pointer-events-none">
+                <i data-lucide="mail" class="w-5 h-5"></i>
+              </span>
+                        <input type="email" id="loginEmail" required value="raphael@industriamodelo.com.br"
+                               class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-eco-main focus:border-transparent transition-all text-sm"
+                               placeholder="seu.email@empresa.com.br">
+                    </div>
+                </div>
+
+                <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <label class="block text-sm font-medium text-eco-text">Senha</label>
+                        <a href="#" class="text-xs font-semibold text-eco-forest hover:underline">Esqueci minha senha</a>
+                    </div>
+                    <div class="relative">
+              <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-eco-muted pointer-events-none">
+                <i data-lucide="lock" class="w-5 h-5"></i>
+              </span>
+                        <input type="password" id="loginSenha" required value="123456"
+                               class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-eco-main focus:border-transparent transition-all text-sm"
+                               placeholder="Sua senha">
+                    </div>
+                </div>
+
+                <div id="loginError" class="hidden p-3 bg-red-50 text-eco-error text-xs rounded-lg font-medium border border-red-200"></div>
+
+                <button type="submit" id="btnLogin"
+                        class="w-full bg-eco-main hover:bg-emerald-600 text-white font-semibold py-3.5 px-4 rounded-xl shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 text-base">
+                    <span>Entrar no Sistema</span>
+                    <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                </button>
+            </form>
+
+            <div class="text-center pt-4 border-t border-slate-100">
+                <p class="text-sm text-eco-muted">
+                    Ainda não possui uma conta?
+                    <a href="#" class="font-semibold text-eco-forest hover:underline">Criar conta</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- ========================================== -->
+<!-- ESTRUTURA PRINCIPAL DO SISTEMA (APP LAYOUT)-->
+<!-- ========================================== -->
+<div id="app-layout" class="hidden min-h-screen flex flex-col md:flex-row">
+
+    <!-- MENU LATERAL (SIDEBAR) -->
+    <aside id="sidebar" class="w-full md:w-64 bg-white border-r border-slate-200 flex flex-col justify-between shrink-0 fixed md:sticky top-0 h-auto md:h-screen z-30 transition-all duration-300">
+        <div>
+            <div class="p-6 flex items-center justify-between border-b border-slate-100">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 bg-eco-forest rounded-xl flex items-center justify-center text-white shadow-sm">
+                        <i data-lucide="leaf" class="w-5 h-5 text-eco-main"></i>
+                    </div>
+                    <span class="text-xl font-bold tracking-tight text-eco-forest">EcoMato</span>
+                </div>
+                <button onclick="toggleMobileMenu()" class="md:hidden text-eco-muted hover:text-eco-text">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+
+            <nav class="p-4 space-y-1.5">
+                <button onclick="navigateTo('dashboard')" id="nav-dashboard"
+                        class="nav-link w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-eco-muted hover:bg-slate-100">
+                    <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+                    <span>Dashboard</span>
+                </button>
+
+                <button onclick="navigateTo('residuos')" id="nav-residuos"
+                        class="nav-link w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-eco-muted hover:bg-slate-100">
+                    <i data-lucide="trash-2" class="w-5 h-5"></i>
+                    <span>Resíduos</span>
+                </button>
+
+            </nav>
+        </div>
+
+        <div class="p-4 border-t border-slate-100">
+            <button onclick="realizarLogout()"
+                    class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-eco-error hover:bg-red-50 transition-all">
+                <i data-lucide="log-out" class="w-5 h-5"></i>
+                <span>Sair</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- ÁREA DE CONTEÚDO PRINCIPAL -->
+    <div class="flex-1 flex flex-col min-w-0 overflow-x-hidden">
+
+        <!-- CABEÇALHO DA APLICAÇÃO -->
+        <header class="bg-white border-b border-slate-200 sticky top-0 z-20 px-4 sm:px-8 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <button onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-lg border border-slate-200 text-eco-muted hover:text-eco-text">
+                    <i data-lucide="menu" class="w-5 h-5"></i>
+                </button>
+                <div>
+                    <h1 class="text-lg sm:text-xl font-bold text-eco-text" id="headerUserGreeting">Boa noite, Raphael</h1>
+                    <p class="text-xs sm:text-sm text-eco-muted font-medium flex items-center gap-1.5">
+                        <i data-lucide="building-2" class="w-4 h-4 text-eco-forest inline"></i>
+                        <span id="headerCompanyName">Indústria Modelo Mato Grosso</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3 sm:gap-4">
+                <div class="flex items-center gap-3 pl-2 sm:pl-4 border-l border-slate-200">
+                    <div class="w-10 h-10 rounded-full bg-eco-forest text-white font-semibold flex items-center justify-center text-sm shadow-sm ring-2 ring-eco-light" id="userAvatar">
+                        RS
+                    </div>
+                    <div class="hidden sm:block text-left">
+                        <span class="block text-sm font-semibold text-eco-text leading-tight" id="userName">Raphael Silva</span>
+                        <span class="block text-xs text-eco-muted">Gestor Ambiental</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- CONTEÚDO DINÂMICO DAS TELAS -->
+        <main class="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto space-y-8">
+
+            <!-- ========================================== -->
+            <!-- 2. DASHBOARD                               -->
+            <!-- ========================================== -->
+            <div id="view-dashboard" class="view-content space-y-8">
+
+                <!-- Cards de Indicadores -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+                    <!-- Card 1 -->
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition-shadow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-sm font-medium text-eco-muted">Resíduos gerados</span>
+                            <div class="p-2.5 bg-green-50 rounded-xl text-eco-forest">
+                                <i data-lucide="scale" class="w-5 h-5"></i>
+                            </div>
+                        </div>
+                        <div class="flex items-baseline justify-between">
+                            <span class="text-2xl sm:text-3xl font-bold text-eco-text"><span id="cardResiduosKg">12.450</span> <span class="text-base font-normal text-eco-muted">kg</span></span>
+                            <span class="inline-flex items-center text-xs font-semibold text-eco-error bg-red-50 px-2 py-1 rounded-md">
+                  <i data-lucide="trending-up" class="w-3.5 h-3.5 mr-1"></i> +8,4%
+                </span>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition-shadow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-sm font-medium text-eco-muted">Destinação adequada</span>
+                            <div class="p-2.5 bg-eco-light rounded-xl text-eco-forest">
+                                <i data-lucide="check-circle-2" class="w-5 h-5"></i>
+                            </div>
+                        </div>
+                        <div class="flex items-baseline justify-between">
+                            <span class="text-2xl sm:text-3xl font-bold text-eco-text"><span id="cardDestinacaoPercent">68</span>%</span>
+                            <span class="inline-flex items-center text-xs font-semibold text-eco-forest bg-eco-light px-2 py-1 rounded-md">
+                  <i data-lucide="trending-up" class="w-3.5 h-3.5 mr-1"></i> +12%
+                </span>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition-shadow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-sm font-medium text-eco-muted">Consumo de água</span>
+                            <div class="p-2.5 bg-blue-50 rounded-xl text-eco-info">
+                                <i data-lucide="droplet" class="w-5 h-5"></i>
+                            </div>
+                        </div>
+                        <div class="flex items-baseline justify-between">
+                            <span class="text-2xl sm:text-3xl font-bold text-eco-text"><span id="cardAguaM3">840</span> <span class="text-base font-normal text-eco-muted">m³</span></span>
+                            <span class="inline-flex items-center text-xs font-semibold text-eco-forest bg-eco-light px-2 py-1 rounded-md">
+                  <i data-lucide="trending-down" class="w-3.5 h-3.5 mr-1"></i> -4,2%
+                </span>
+                        </div>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition-shadow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-sm font-medium text-eco-muted">Docs. a vencer</span>
+                            <div class="p-2.5 bg-amber-50 rounded-xl text-eco-warn">
+                                <i data-lucide="alert-circle" class="w-5 h-5"></i>
+                            </div>
+                        </div>
+                        <div class="flex items-baseline justify-between">
+                            <span class="text-2xl sm:text-3xl font-bold text-eco-text" id="cardDocsVencimento">3</span>
+                            <span class="inline-flex items-center text-xs font-semibold text-eco-warn bg-amber-50 px-2.5 py-1 rounded-md">
+                  Atenção
+                </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Seção de Gráficos -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-7 bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm">
+                        <div class="flex items-center justify-between mb-6">
+                            <div>
+                                <h3 class="text-base font-bold text-eco-text">Geração de resíduos por mês</h3>
+                                <p class="text-xs text-eco-muted">Histórico mensal em quilogramas (kg)</p>
+                            </div>
+                            <span class="text-xs font-semibold bg-slate-100 text-eco-muted px-3 py-1.5 rounded-lg">2026</span>
+                        </div>
+                        <div class="h-64 relative">
+                            <canvas id="lineChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-5 bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm">
+                        <div class="flex items-center justify-between mb-6">
+                            <div>
+                                <h3 class="text-base font-bold text-eco-text">Destinação de resíduos</h3>
+                                <p class="text-xs text-eco-muted">Distribuição percentual atual</p>
+                            </div>
+                        </div>
+                        <div class="h-64 relative flex items-center justify-center">
+                            <canvas id="doughnutChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Seção "Atenção Necessária" -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm">
+                    <div class="flex items-center gap-2 mb-4">
+                        <i data-lucide="alert-triangle" class="w-5 h-5 text-eco-warn"></i>
+                        <h3 class="text-base font-bold text-eco-text">Atenção necessária</h3>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-amber-50/60 border border-amber-200/80 rounded-xl gap-3">
+                            <div class="flex items-center gap-3">
+                                <span class="w-2.5 h-2.5 rounded-full bg-eco-warn shrink-0"></span>
+                                <span class="text-sm font-medium text-slate-800">Licença de operação vence em 12 dias</span>
+                            </div>
+                            <button class="text-xs font-semibold text-eco-forest bg-white hover:bg-eco-light border border-slate-200 px-3.5 py-2 rounded-lg transition-all self-start sm:self-auto">
+                                Renovar licença
+                            </button>
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-amber-50/60 border border-amber-200/80 rounded-xl gap-3">
+                            <div class="flex items-center gap-3">
+                                <span class="w-2.5 h-2.5 rounded-full bg-eco-warn shrink-0"></span>
+                                <span class="text-sm font-medium text-slate-800">Comprovante de destinação pendente</span>
+                            </div>
+                            <button class="text-xs font-semibold text-eco-forest bg-white hover:bg-eco-light border border-slate-200 px-3.5 py-2 rounded-lg transition-all self-start sm:self-auto">
+                                Anexar MTR
+                            </button>
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-blue-50/60 border border-blue-200/80 rounded-xl gap-3">
+                            <div class="flex items-center gap-3">
+                                <span class="w-2.5 h-2.5 rounded-full bg-eco-info shrink-0"></span>
+                                <span class="text-sm font-medium text-slate-800">Consumo de energia aumentou 18% neste mês</span>
+                            </div>
+                            <button class="text-xs font-semibold text-eco-info bg-white hover:bg-blue-100 border border-slate-200 px-3.5 py-2 rounded-lg transition-all self-start sm:self-auto">
+                                Ver detalhes
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- ========================================== -->
+            <!-- 3. TELA DE GESTÃO DE RESÍDUOS              -->
+            <!-- ========================================== -->
+            <div id="view-residuos" class="view-content hidden space-y-6">
+
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                        <h2 class="text-2xl font-bold text-eco-text">Gestão de resíduos</h2>
+                        <p class="text-sm text-eco-muted">Registre, acompanhe e analise os resíduos gerados pela indústria</p>
+                    </div>
+                    <button onclick="navigateTo('novo-registro')"
+                            class="inline-flex items-center justify-center gap-2 bg-eco-main hover:bg-emerald-600 text-white font-semibold px-4 py-2.5 rounded-xl shadow-sm transition-all self-start sm:self-auto">
+                        <i data-lucide="plus" class="w-5 h-5"></i>
+                        <span>+ Novo registro</span>
+                    </button>
+                </div>
+
+                <!-- Filtros e Busca -->
+                <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+                        <div class="lg:col-span-2 relative">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-eco-muted pointer-events-none">
+                  <i data-lucide="search" class="w-4 h-4"></i>
+                </span>
+                            <input type="text" id="tableSearch" onkeyup="renderTable()" placeholder="Pesquisar resíduo, classe..."
+                                   class="w-full pl-9 pr-4 py-2 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-eco-main">
+                        </div>
+
+                        <select class="py-2 px-3 rounded-xl border border-slate-200 text-sm text-eco-text bg-white focus:outline-none focus:ring-2 focus:ring-eco-main">
+                            <option>Período: Agosto/2026</option>
+                            <option>Últimos 30 dias</option>
+                            <option>Últimos 90 dias</option>
+                        </select>
+
+                        <select class="py-2 px-3 rounded-xl border border-slate-200 text-sm text-eco-text bg-white focus:outline-none focus:ring-2 focus:ring-eco-main">
+                            <option>Todas as Classes</option>
+                            <option>Classe I (Perigoso)</option>
+                            <option>Classe II-A (Não Inerte)</option>
+                            <option>Classe II-B (Inerte)</option>
+                        </select>
+
+                        <select class="py-2 px-3 rounded-xl border border-slate-200 text-sm text-eco-text bg-white focus:outline-none focus:ring-2 focus:ring-eco-main">
+                            <option>Todas Destinações</option>
+                            <option>Reciclagem</option>
+                            <option>Tratamento</option>
+                            <option>Aterro Industrial</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Tabela -->
+                <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm">
+                            <thead class="bg-slate-50 border-b border-slate-200 text-xs font-semibold text-eco-muted uppercase tracking-wider">
+                            <tr>
+                                <th class="py-3.5 px-4 sm:px-6">Data</th>
+                                <th class="py-3.5 px-4 sm:px-6">Resíduo</th>
+                                <th class="py-3.5 px-4 sm:px-6">Classe</th>
+                                <th class="py-3.5 px-4 sm:px-6">Quantidade</th>
+                                <th class="py-3.5 px-4 sm:px-6">Destinação</th>
+                                <th class="py-3.5 px-4 sm:px-6">Situação</th>
+                            </tr>
+                            </thead>
+                            <tbody id="residuosTableBody" class="divide-y divide-slate-100 font-medium">
+                            <!-- Dados preenchidos via JS/PHP -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- ========================================== -->
+            <!-- 4. TELA DE NOVO REGISTRO DE RESÍDUO        -->
+            <!-- ========================================== -->
+            <div id="view-novo-registro" class="view-content hidden max-w-3xl mx-auto space-y-6">
+
+                <div class="flex items-center gap-3">
+                    <button onclick="navigateTo('residuos')" class="p-2 rounded-xl border border-slate-200 text-eco-muted hover:bg-slate-100">
+                        <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                    </button>
+                    <div>
+                        <h2 class="text-2xl font-bold text-eco-text">Novo registro de resíduo</h2>
+                        <p class="text-sm text-eco-muted">Preencha os dados do resíduo gerado para atualização dos indicadores</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200/80 shadow-sm">
+                    <form id="formNovoRegistro" onsubmit="salvarNovoRegistro(event)" class="space-y-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+                            <div class="sm:col-span-2">
+                                <label class="block text-sm font-semibold text-eco-text mb-2">Tipo de resíduo *</label>
+                                <input type="text" id="inputResiduo" required placeholder="Ex: Papelão, Óleo lubrificante, Plástico PET..."
+                                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-eco-main">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-eco-text mb-2">Classe do resíduo *</label>
+                                <select id="inputClasse" required class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-eco-main">
+                                    <option value="">Selecione...</option>
+                                    <option value="I">Classe I - Perigoso</option>
+                                    <option value="II-A">Classe II-A - Não Inerte</option>
+                                    <option value="II-B">Classe II-B - Inerte</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-eco-text mb-2">Data de geração *</label>
+                                <input type="date" id="inputData" required value="2026-09-01"
+                                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-eco-main">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-eco-text mb-2">Quantidade *</label>
+                                <input type="number" step="0.01" id="inputQuantidade" required placeholder="Ex: 500"
+                                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-eco-main">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-eco-text mb-2">Unidade de medida *</label>
+                                <select id="inputUnidade" required class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-eco-main">
+                                    <option value="kg">Quilogramas (kg)</option>
+                                    <option value="L">Litros (L)</option>
+                                    <option value="Ton">Toneladas (Ton)</option>
+                                    <option value="m³">Metros Cúbicos (m³)</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-eco-text mb-2">Forma de armazenamento</label>
+                                <input type="text" id="inputArmazenamento" placeholder="Ex: Tambores, Caçamba, Bag..."
+                                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-eco-main">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-eco-text mb-2">Tipo de destinação *</label>
+                                <select id="inputDestinacao" required class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-eco-main">
+                                    <option value="Reciclagem">Reciclagem</option>
+                                    <option value="Tratamento">Tratamento</option>
+                                    <option value="Aterro">Aterro Industrial</option>
+                                    <option value="Coprocessamento">Coprocessamento</option>
+                                    <option value="Pendente">Pendente</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-eco-text mb-2">Empresa transportadora</label>
+                                <input type="text" id="inputTransportadora" placeholder="Nome da transportadora"
+                                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-eco-main">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-eco-text mb-2">Empresa destinadora</label>
+                                <input type="text" id="inputDestinadora" placeholder="Nome da empresa receptora"
+                                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-eco-main">
+                            </div>
+
+                            <!-- Upload de Comprovante -->
+                            <div class="sm:col-span-2">
+                                <label class="block text-sm font-semibold text-eco-text mb-2">Upload do comprovante (MTR / CDF)</label>
+                                <div class="relative border-2 border-dashed border-slate-200 rounded-2xl p-6 text-center hover:border-eco-main transition-colors bg-slate-50/50">
+                                    <input type="file" id="inputComprovante" accept=".pdf,.jpg,.jpeg,.png" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                                    <i data-lucide="upload-cloud" class="w-8 h-8 text-eco-muted mx-auto mb-2"></i>
+                                    <p class="text-sm font-medium text-eco-text" id="fileNameDisplay">Clique para selecionar ou arraste o arquivo PDF/Imagem</p>
+                                    <p class="text-xs text-eco-muted mt-1">Tamanho máximo: 10MB</p>
+                                </div>
+                            </div>
+
+                            <div class="sm:col-span-2">
+                                <label class="block text-sm font-semibold text-eco-text mb-2">Observações</label>
+                                <textarea id="inputObservacoes" rows="3" placeholder="Informações adicionais relevantes..."
+                                          class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-eco-main"></textarea>
+                            </div>
+
+                        </div>
+
+                        <div class="flex items-center justify-end gap-3 pt-4 border-t border-slate-100">
+                            <button type="button" onclick="navigateTo('residuos')"
+                                    class="px-5 py-2.5 rounded-xl border border-slate-200 text-sm font-semibold text-eco-muted hover:bg-slate-50 transition-all">
+                                Cancelar
+                            </button>
+                            <button type="submit"
+                                    class="px-6 py-2.5 rounded-xl bg-eco-main hover:bg-emerald-600 text-white text-sm font-semibold shadow-sm transition-all flex items-center gap-2">
+                                <i data-lucide="check" class="w-4 h-4"></i>
+                                <span>Salvar registro</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </main>
+    </div>
+</div>
+
+
+<!-- ========================================== -->
+<!-- MODAL DE SUCESSO                           -->
+<!-- ========================================== -->
+<div id="successModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 text-center shadow-2xl space-y-5">
+        <div class="w-16 h-16 bg-eco-light text-eco-forest rounded-full flex items-center justify-center mx-auto ring-8 ring-green-50">
+            <i data-lucide="check-circle" class="w-10 h-10"></i>
+        </div>
+        <div>
+            <h3 class="text-xl font-bold text-eco-text">Registro salvo com sucesso!</h3>
+            <p class="text-sm text-eco-muted mt-2">
+                Os indicadores ambientais foram atualizados.
+            </p>
+        </div>
+        <button onclick="closeModalAndGoToResiduos()"
+                class="w-full bg-eco-forest hover:bg-green-900 text-white font-semibold py-3 px-4 rounded-xl shadow-md transition-all text-sm">
+            Voltar para Gestão de Resíduos
+        </button>
+    </div>
+</div>
+
+
+<!-- ========================================== -->
+<!-- LÓGICA JAVASCRIPT & CONEXÃO COM A API PHP   -->
+<!-- ========================================== -->
+<script>
+    let lineChartInstance = null;
+    let doughnutChartInstance = null;
+
+    document.addEventListener("DOMContentLoaded", () => {
+        lucide.createIcons();
+        checkAuthStatus();
+
+        // Atualiza o texto do nome do arquivo selecionado
+        const fileInput = document.getElementById('inputComprovante');
+        if (fileInput) {
+            fileInput.addEventListener('change', (e) => {
+                const fileName = e.target.files[0]?.name || 'Clique para selecionar ou arraste o arquivo PDF/Imagem';
+                document.getElementById('fileNameDisplay').textContent = fileName;
+            });
+        }
+    });
+
+    // 1. Verificar Status do Usuário na Sessão PHP
+    async function checkAuthStatus() {
+        try {
+            const res = await fetch('api/auth.php?action=check');
+            const data = await res.json();
+
+            if (data.logged) {
+                updateUserInfo(data.user);
+                navigateTo('dashboard');
+            } else {
+                navigateTo('login');
+            }
+        } catch (err) {
+            // Se rodar sem servidor PHP ainda, inicia a tela de login
+            navigateTo('login');
+        }
+    }
+
+    // Atualiza nomes do usuário no header
+    function updateUserInfo(user) {
+        if (!user) return;
+        document.getElementById('headerUserGreeting').textContent = `Boa noite, ${user.nome.split(' ')[0]}`;
+        document.getElementById('headerCompanyName').textContent = user.empresa;
+        document.getElementById('userName').textContent = user.nome;
+
+        const initials = user.nome.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+        document.getElementById('userAvatar').textContent = initials;
+    }
+
+    // 2. Realizar Login Real via PHP
+    async function realizarLogin(e) {
+        e.preventDefault();
+        const email = document.getElementById('loginEmail').value;
+        const senha = document.getElementById('loginSenha').value;
+        const errBox = document.getElementById('loginError');
+        errBox.classList.add('hidden');
+
+        try {
+            const res = await fetch('api/auth.php?action=login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, senha })
+            });
+            const data = await res.json();
+
+            if (data.success) {
+                updateUserInfo(data.user);
+                navigateTo('dashboard');
+            } else {
+                errBox.textContent = data.message || 'Erro ao efetuar login';
+                errBox.classList.remove('hidden');
+            }
+        } catch (err) {
+            // Fallback para visualização offline se não houver servidor ativado
+            navigateTo('dashboard');
+        }
+    }
+
+    // 3. Realizar Logout
+    async function realizarLogout() {
+        try {
+            await fetch('api/auth.php?action=logout');
+        } catch (e) {}
+        navigateTo('login');
+    }
+
+    // 4. Controle de Navegação entre Telas
+    function navigateTo(viewId) {
+        const loginView = document.getElementById('view-login');
+        const appLayout = document.getElementById('app-layout');
+
+        document.querySelectorAll('.view-content').forEach(view => view.classList.add('hidden'));
+
+        if (viewId === 'login') {
+            loginView.classList.remove('hidden');
+            appLayout.classList.add('hidden');
+        } else {
+            loginView.classList.add('hidden');
+            appLayout.classList.remove('hidden');
+
+            const targetView = document.getElementById(`view-${viewId}`);
+            if (targetView) targetView.classList.remove('hidden');
+
+            document.querySelectorAll('.nav-link').forEach(btn => {
+                btn.classList.remove('bg-eco-forest', 'text-white', 'shadow-sm');
+                btn.classList.add('text-eco-muted');
+            });
+
+            const activeNav = document.getElementById(`nav-${viewId}`);
+            if (activeNav) {
+                activeNav.classList.remove('text-eco-muted');
+                activeNav.classList.add('bg-eco-forest', 'text-white', 'shadow-sm');
+            }
+
+            if (viewId === 'dashboard') {
+                loadDashboardData();
+            } else if (viewId === 'residuos') {
+                renderTable();
+            }
+        }
+
+        // Sidebar Mobile Toggle
+        const sidebar = document.getElementById('sidebar');
+        if (window.innerWidth < 768) {
+            sidebar.classList.add('hidden');
+        } else {
+            sidebar.classList.remove('hidden');
+        }
+
+        window.scrollTo(0, 0);
+    }
+
+    function toggleMobileMenu() {
+        const sidebar = document.getElementById('sidebar');
+        sidebar.classList.toggle('hidden');
+    }
+
+    // 5. Carregar Dados Dinâmicos do Dashboard
+    async function loadDashboardData() {
+        try {
+            const res = await fetch('api/dashboard.php');
+            const data = await res.json();
+
+            if (data.cards) {
+                document.getElementById('cardResiduosKg').textContent = data.cards.residuos_gerados_kg;
+                document.getElementById('cardDestinacaoPercent').textContent = data.cards.destinacao_adequada_percent;
+                document.getElementById('cardAguaM3').textContent = data.cards.consumo_agua_m3;
+                document.getElementById('cardDocsVencimento').textContent = data.cards.docs_vencimento;
+            }
+
+            initCharts(data.graficos);
+        } catch (e) {
+            initCharts(); // Renderiza com dados padrão se a API falhar
+        }
+    }
+
+    // 6. Carregar Tabela de Resíduos via PHP
+    async function renderTable() {
+        const tbody = document.getElementById('residuosTableBody');
+        const search = document.getElementById('tableSearch')?.value || '';
+
+        let residuosList = [
+            { data: '31/08/2026', residuo: 'Papelão', classe: 'II-A', qtd: '850 kg', destinacao: 'Reciclagem', situacao: 'Adequado' },
+            { data: '28/08/2026', residuo: 'Óleo usado', classe: 'I', qtd: '120 L', destinacao: 'Tratamento', situacao: 'Adequado' },
+            { data: '25/08/2026', residuo: 'Plástico', classe: 'II-A', qtd: '430 kg', destinacao: 'Pendente', situacao: 'Atenção' }
+        ];
+
+        try {
+            const res = await fetch(`api/residuos.php?search=${encodeURIComponent(search)}`);
+            const result = await res.json();
+            if (result.data && result.data.length > 0) {
+                residuosList = result.data;
+            }
+        } catch (e) {}
+
+        tbody.innerHTML = '';
+        residuosList.forEach(item => {
+            let badgeClass = '';
+            if (item.situacao === 'Adequado') badgeClass = 'bg-eco-light text-eco-forest border-green-200';
+            else if (item.situacao === 'Atenção') badgeClass = 'bg-amber-50 text-eco-warn border-amber-200';
+            else badgeClass = 'bg-red-50 text-eco-error border-red-200';
+
+            const row = document.createElement('tr');
+            row.className = 'hover:bg-slate-50/80 transition-colors';
+            row.innerHTML = `
+          <td class="py-4 px-4 sm:px-6 text-eco-muted">${item.data}</td>
+          <td class="py-4 px-4 sm:px-6 font-semibold text-eco-text">${item.residuo}</td>
+          <td class="py-4 px-4 sm:px-6 text-eco-muted">${item.classe}</td>
+          <td class="py-4 px-4 sm:px-6 text-eco-text font-medium">${item.qtd}</td>
+          <td class="py-4 px-4 sm:px-6 text-eco-muted">${item.destinacao}</td>
+          <td class="py-4 px-4 sm:px-6">
+            <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-semibold border ${badgeClass}">
+              ${item.situacao}
+            </span>
+          </td>
+        `;
+            tbody.appendChild(row);
+        });
+    }
+
+    // 7. Salvar Novo Registro enviando para o PHP
+    async function salvarNovoRegistro(e) {
+        e.preventDefault();
+
+        const formData = new FormData();
+        formData.append('tipo_residuo', document.getElementById('inputResiduo').value);
+        formData.append('classe', document.getElementById('inputClasse').value);
+        formData.append('data_geracao', document.getElementById('inputData').value);
+        formData.append('quantidade', document.getElementById('inputQuantidade').value);
+        formData.append('unidade', document.getElementById('inputUnidade').value);
+        formData.append('forma_armazenamento', document.getElementById('inputArmazenamento').value);
+        formData.append('tipo_destinacao', document.getElementById('inputDestinacao').value);
+        formData.append('empresa_transportadora', document.getElementById('inputTransportadora').value);
+        formData.append('empresa_destinadora', document.getElementById('inputDestinadora').value);
+        formData.append('observacoes', document.getElementById('inputObservacoes').value);
+
+        const fileInput = document.getElementById('inputComprovante');
+        if (fileInput && fileInput.files[0]) {
+            formData.append('comprovante', fileInput.files[0]);
+        }
+
+        try {
+            const res = await fetch('api/residuos.php', {
+                method: 'POST',
+                body: formData
+            });
+            const result = await res.json();
+
+            if (result.success) {
+                document.getElementById('successModal').classList.remove('hidden');
+                document.getElementById('formNovoRegistro').reset();
+                document.getElementById('fileNameDisplay').textContent = 'Clique para selecionar ou arraste o arquivo PDF/Imagem';
+            } else {
+                alert(result.message || 'Erro ao salvar registro.');
+            }
+        } catch (e) {
+            // Modo offline de demonstração
+            document.getElementById('successModal').classList.remove('hidden');
+            document.getElementById('formNovoRegistro').reset();
+        }
+    }
+
+    function closeModalAndGoToResiduos() {
+        document.getElementById('successModal').classList.add('hidden');
+        navigateTo('residuos');
+    }
+
+    // 8. Inicialização dos Gráficos
+    function initCharts(graficosData) {
+        const lineCtx = document.getElementById('lineChart');
+        const doughnutCtx = document.getElementById('doughnutChart');
+
+        if (!lineCtx || !doughnutCtx) return;
+
+        if (lineChartInstance) lineChartInstance.destroy();
+        if (doughnutChartInstance) doughnutChartInstance.destroy();
+
+        const lineLabels = graficosData?.linha?.labels || ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago'];
+        const lineValues = graficosData?.linha?.valores || [10200, 11400, 10800, 11900, 11200, 12100, 11800, 12450];
+
+        lineChartInstance = new Chart(lineCtx, {
+            type: 'line',
+            data: {
+                labels: lineLabels,
+                datasets: [{
+                    label: 'Resíduos (kg)',
+                    data: lineValues,
+                    borderColor: '#22C55E',
+                    backgroundColor: 'rgba(34, 197, 94, 0.1)',
+                    fill: true,
+                    tension: 0.4,
+                    borderWidth: 3,
+                    pointBackgroundColor: '#166534',
+                    pointRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { grid: { color: '#F1F5F9' }, ticks: { font: { family: 'Inter' } } },
+                    x: { grid: { display: false }, ticks: { font: { family: 'Inter' } } }
+                }
+            }
+        });
+
+        doughnutChartInstance = new Chart(doughnutCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Reciclagem', 'Tratamento', 'Aterro Industrial', 'Coprocessamento', 'Pendente'],
+                datasets: [{
+                    data: [45, 23, 15, 10, 7],
+                    backgroundColor: ['#22C55E', '#2563EB', '#64748B', '#F59E0B', '#DC2626'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { font: { family: 'Inter', size: 11 }, usePointStyle: true, boxWidth: 8 }
+                    }
+                },
+                cutout: '70%'
+            }
+        });
+    }
+</script>
+</body>
+</html>
