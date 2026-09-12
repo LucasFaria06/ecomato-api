@@ -1,20 +1,22 @@
-# 🗄️ Banco de Dados - EcoMato MVP
+# 🗄️ Banco de Dados - EcoMato MVP (MySQL)
 
-**BD Team**: Vocês precisam criar apenas **2 tabelas**
+**BD Team**: Vocês precisam criar apenas **2 tabelas** no MySQL Workbench
 
 ---
 
-## ✅ Passo a Passo
+## ✅ Passo a Passo no MySQL Workbench
 
-### 1. Criar banco de dados
-```sql
-CREATE DATABASE ecomato_db;
-```
+### 1. Abrir MySQL Workbench
+- Execute o aplicativo MySQL Workbench
+- Conecte à sua instância MySQL local
 
-### 2. Conectar ao banco
-```sql
-\c ecomato_db
-```
+### 2. Abrir o arquivo SQL
+- Clique em: **File** → **Open SQL Script**
+- Selecione: `/home/usuario/ecomato-api/DATABASE_SETUP.sql`
+
+### 3. Executar o script
+- Clique em: **Query** → **Execute All** (ou Ctrl+Shift+Enter)
+- Aguarde aparecer a mensagem "0 rows affected" (sucesso!)
 
 ---
 
@@ -92,14 +94,28 @@ JOIN usuarios u ON r.usuario_id = u.id;
 
 ## 📝 Dados de Conexão
 
-Passar para o Lucas (backend):
-- **Host**: localhost (ou IP do servidor)
-- **Port**: 5432 (padrão PostgreSQL)
+Depois de criar o banco, passar para o Lucas (backend):
+- **Host**: localhost
+- **Port**: 3306 (padrão MySQL)
 - **Database**: ecomato_db
-- **User**: postgres (ou o usuário que vocês criaram)
+- **User**: root (ou o usuário que vocês criaram)
 - **Password**: (a senha que vocês definiram)
 
-Lucas vai colocar essas credenciais no arquivo `.env`
+**Lucas vai colocar essas credenciais no arquivo `.env`:**
+```
+DB_HOST=localhost
+DB_PORT=3306
+DB_NAME=ecomato_db
+DB_USER=root
+DB_PASSWORD=sua_senha_aqui
+```
+
+**Depois Lucas executa:**
+```bash
+php -S localhost:8000
+```
+
+E pronto! Backend conectado ao MySQL! ✅
 
 ---
 

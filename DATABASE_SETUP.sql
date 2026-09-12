@@ -1,38 +1,37 @@
 -- ========================================
 -- EcoMato MVP - Setup do Banco de Dados
--- PostgreSQL
+-- MySQL (para MySQL Workbench)
 -- ========================================
 
 -- Criar banco de dados
-CREATE DATABASE ecomato_db;
-
--- Conectar ao banco (no terminal: \c ecomato_db)
+CREATE DATABASE IF NOT EXISTS ecomato_db;
+USE ecomato_db;
 
 -- ========================================
 -- TABELA 1: usuarios
 -- ========================================
 
 CREATE TABLE usuarios (
-    id SERIAL PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     senha VARCHAR(255) NOT NULL,
     role VARCHAR(50) DEFAULT 'user',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Inserir dados de teste
 INSERT INTO usuarios (nome, email, senha, role) VALUES
-('Raphael Admin', 'raphael@ecomato.com.br', '123456', 'admin'),
-('Teste User', 'teste@ecomato.com.br', '123456', 'user');
+('Raphael Admin', 'raphael@ecomato.com.br', '$2y$10$YourHashedPasswordHere', 'admin'),
+('Teste User', 'teste@ecomato.com.br', '$2y$10$YourHashedPasswordHere', 'user');
 
 -- ========================================
 -- TABELA 2: residuos
 -- ========================================
 
 CREATE TABLE residuos (
-    id SERIAL PRIMARY KEY,
-    usuario_id INTEGER NOT NULL REFERENCES usuarios(id) ON DELETE CASCADE,
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT NOT NULL,
     tipo_residuo VARCHAR(100) NOT NULL,
     classe VARCHAR(10) NOT NULL,
     quantidade DECIMAL(10, 2) NOT NULL,
@@ -40,8 +39,9 @@ CREATE TABLE residuos (
     data_geracao DATE NOT NULL,
     tipo_destinacao VARCHAR(100) NOT NULL,
     situacao VARCHAR(50) DEFAULT 'Pendente',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Criar índices
 CREATE INDEX idx_residuos_usuario ON residuos(usuario_id);
@@ -54,11 +54,11 @@ INSERT INTO residuos (usuario_id, tipo_residuo, classe, quantidade, unidade, dat
 (1, 'Plástico', 'II-A', 430, 'kg', '2026-08-25', 'Reciclagem', 'Atenção');
 
 -- ========================================
--- VERIFICAÇÕES (execute para confirmar)
+-- VERIFICAÇÕES (execute no MySQL Workbench)
 -- ========================================
 
 -- Ver todas as tabelas
--- \dt
+-- SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'ecomato_db';
 
 -- Ver dados de usuarios
 -- SELECT * FROM usuarios;
