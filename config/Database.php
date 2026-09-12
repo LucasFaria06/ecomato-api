@@ -22,8 +22,8 @@ class Database {
 
         $this->data = [
             'usuarios' => [
-                ['id' => 1, 'nome' => 'Raphael Admin', 'email' => 'raphael@ecomato.com.br', 'senha' => $hashedPassword, 'role' => 'admin', 'created_at' => date('Y-m-d H:i:s')],
-                ['id' => 2, 'nome' => 'Teste User', 'email' => 'teste@ecomato.com.br', 'senha' => $hashedPassword, 'role' => 'user', 'created_at' => date('Y-m-d H:i:s')]
+                ['id' => 1, 'nome' => 'Raphael Admin', 'email' => 'raphael@industriamodelo.com.br', 'senha' => $hashedPassword, 'role' => 'admin', 'created_at' => date('Y-m-d H:i:s')],
+                ['id' => 2, 'nome' => 'Teste User', 'email' => 'teste@industriamodelo.com.br', 'senha' => $hashedPassword, 'role' => 'user', 'created_at' => date('Y-m-d H:i:s')]
             ],
             'residuos' => [
                 ['id' => 1, 'usuario_id' => 1, 'tipo_residuo' => 'Papelão', 'classe' => 'II-A', 'quantidade' => 850, 'unidade' => 'kg', 'data_geracao' => '2026-08-31', 'tipo_destinacao' => 'Reciclagem', 'situacao' => 'Adequado', 'created_at' => date('Y-m-d H:i:s')],
