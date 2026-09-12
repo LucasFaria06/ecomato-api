@@ -1,0 +1,62 @@
+{
+    "usuarios": [
+        {
+            "id": 1,
+            "nome": "Raphael Admin",
+            "email": "raphael@industriamodelo.com.br",
+            "senha": "$2y$10$GLECvN08BXJtcQK1HHzO5ejGPLdi9vPJIH9.9k60NgOMX6G7nQqCS",
+            "role": "admin",
+            "created_at": "2026-09-12 01:50:14"
+        },
+        {
+            "id": 2,
+            "nome": "Teste User",
+            "email": "teste@industriamodelo.com.br",
+            "senha": "$2y$10$GLECvN08BXJtcQK1HHzO5ejGPLdi9vPJIH9.9k60NgOMX6G7nQqCS",
+            "role": "user",
+            "created_at": "2026-09-12 01:50:14"
+        }
+    ],
+    "residuos": [
+        {
+            "id": 1,
+            "usuario_id": 1,
+            "tipo_residuo": "Papelão",
+            "classe": "II-A",
+            "quantidade": 850,
+            "unidade": "kg",
+            "data_geracao": "2026-08-31",
+            "tipo_destinacao": "Reciclagem",
+            "situacao": "Adequado",
+            "created_at": "2026-09-12 01:50:14"
+        },
+        {
+            "id": 2,
+            "usuario_id": 1,
+            "tipo_residuo": "Óleo usado",
+            "classe": "I",
+            "quantidade": 120,
+            "unidade": "L",
+            "data_geracao": "2026-08-28",
+            "tipo_destinacao": "Tratamento",
+            "situacao": "Adequado",
+            "created_at": "2026-09-12 01:50:14"
+        },
+        {
+            "id": 3,
+            "usuario_id": 1,
+            "tipo_residuo": "Plástico",
+            "classe": "II-A",
+            "quantidade": 430,
+            "unidade": "kg",
+            "data_geracao": "2026-08-25",
+            "tipo_destinacao": "Reciclagem",
+            "situacao": "Atenção",
+            "created_at": "2026-09-12 01:50:14"
+        }
+    ],
+    "nextIds": {
+        "usuarios": 3,
+        "residuos": 4
+    }
+}
