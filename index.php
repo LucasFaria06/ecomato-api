@@ -42,32 +42,42 @@ $uri = str_replace('/ecomato-api', '', $uri);
 
 // Rotas
 try {
+    // Test route
     if ($uri === '/api/test') {
         Response::success(['message' => 'API rodando!'], 'API funcionando corretamente');
     }
-    // Auth routes
+
+    // ========== AUTENTICAÇÃO ==========
     elseif ($uri === '/api/auth/login' && $method === 'POST') {
-        $input = json_decode(file_get_contents('php://input'), true);
-        Response::error('AuthController não implementado ainda', 501);
+        $authController = new AuthController();
+        $authController->login();
     }
-    // Residuos routes
+    elseif ($uri === '/api/auth/logout' && $method === 'POST') {
+        $authController = new AuthController();
+        $authController->logout();
+    }
+
+    // ========== RESÍDUOS ==========
     elseif ($uri === '/api/residuos' && $method === 'GET') {
-        Response::error('ResiduosController não implementado ainda', 501);
+        $residuosController = new ResiduosController();
+        $residuosController->listar();
     }
     elseif ($uri === '/api/residuos' && $method === 'POST') {
-        Response::error('ResiduosController não implementado ainda', 501);
+        $residuosController = new ResiduosController();
+        $residuosController->criar();
     }
-    // Documentos routes
-    elseif ($uri === '/api/documentos' && $method === 'GET') {
-        Response::error('DocumentosController não implementado ainda', 501);
+    elseif (preg_match('/^\/api\/residuos\/(\d+)$/', $uri, $matches) && $method === 'DELETE') {
+        $id = $matches[1];
+        $residuosController = new ResiduosController();
+        $residuosController->deletar($id);
     }
-    elseif ($uri === '/api/documentos' && $method === 'POST') {
-        Response::error('DocumentosController não implementado ainda', 501);
-    }
-    // Dashboard/Indicadores
+
+    // ========== DASHBOARD ==========
     elseif ($uri === '/api/dashboard' && $method === 'GET') {
-        Response::error('IndicadoresController não implementado ainda', 501);
+        $residuosController = new ResiduosController();
+        $residuosController->dashboard();
     }
+
     else {
         Response::notFound('Rota não encontrada: ' . $uri);
     }
