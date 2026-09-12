@@ -1,7 +1,8 @@
 -- ========================================
--- EcoMato MVP - SQL Definitivo
+-- EcoMato MVP - SQL DEFINITIVO
 -- MySQL / MySQL Workbench
 -- Baseado no Frontend do Rafael
+-- 2 Tabelas | 5 Registros de Teste
 -- ========================================
 
 -- Criar banco de dados
@@ -30,18 +31,6 @@ INSERT INTO usuarios (nome, email, senha, role) VALUES
 -- ========================================
 -- TABELA 2: residuos
 -- ========================================
--- Campos esperados pelo frontend do Rafael:
--- - tipo_residuo (select: Papelão, Plástico, Óleo usado, Metal, etc)
--- - classe (select: I, II-A, II-B)
--- - data_geracao (date picker)
--- - quantidade (number)
--- - unidade (select: kg, L, t, m³)
--- - forma_armazenamento (select: Tambor, Big bag, Caçamba, Caixa)
--- - tipo_destinacao (select: Reciclagem, Tratamento, Aterro, Incineração)
--- - empresa_transportadora (text input)
--- - empresa_destinadora (text input)
--- - comprovante (file upload - armazenar URL)
--- - observacoes (textarea)
 
 CREATE TABLE IF NOT EXISTS residuos (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -68,79 +57,60 @@ CREATE INDEX idx_residuos_usuario ON residuos(usuario_id);
 CREATE INDEX idx_residuos_data ON residuos(data_geracao);
 CREATE INDEX idx_residuos_classe ON residuos(classe);
 
--- Dados de teste (3 resíduos)
+-- Dados de teste (3 resíduos do usuário ID 1)
 INSERT INTO residuos (usuario_id, tipo_residuo, classe, data_geracao, quantidade, unidade, forma_armazenamento, tipo_destinacao, empresa_transportadora, empresa_destinadora, situacao) VALUES
 (1, 'Papelão', 'II-A', '2026-08-31', 850, 'kg', 'Big bag', 'Reciclagem', 'Transportes XYZ', 'Recicladora ABC', 'Adequado'),
 (1, 'Óleo usado', 'I', '2026-08-28', 120, 'L', 'Tambor', 'Tratamento', 'Transportes XYZ', 'Tratadora DEF', 'Adequado'),
 (1, 'Plástico', 'II-A', '2026-08-25', 430, 'kg', 'Caçamba', 'Reciclagem', 'Transportes XYZ', 'Recicladora GHI', 'Atenção');
 
 -- ========================================
--- CAMPOS ESPERADOS PELOS ENDPOINTS
+-- RESUMO DO QUE FOI CRIADO
 -- ========================================
-
+--
+-- ✅ Tabela usuarios: 2 registros
+--    - raphael@industriamodelo.com.br (admin)
+--    - teste@industriamodelo.com.br (user)
+--    Senha de teste: 123456
+--
+-- ✅ Tabela residuos: 3 registros
+--    - 850 kg Papelão (Reciclagem - Adequado)
+--    - 120 L Óleo usado (Tratamento - Adequado)
+--    - 430 kg Plástico (Reciclagem - Atenção)
+--
+-- ✅ Relacionamento: usuarios (1) ──── (N) residuos
+--    - ON DELETE CASCADE (integridade referencial)
+--
+-- ✅ Índices: usuario_id, data_geracao, classe
+--
+-- ========================================
+-- ENDPOINTS ESPERADOS
+-- ========================================
+--
 -- POST /api/auth.php?action=login
--- Body: { email, senha }
--- Response: { token, user: { id, nome, email, role } }
-
+--      Body: { email, senha }
+--
 -- GET /api/residuos.php
--- Headers: Authorization: Bearer [token]
--- Response: [{ id, usuario_id, tipo_residuo, classe, ... }]
-
+--      Headers: Authorization: Bearer [token]
+--
 -- POST /api/residuos.php
--- Headers: Authorization: Bearer [token]
--- Body: { tipo_residuo, classe, quantidade, unidade, data_geracao, tipo_destinacao,
---         forma_armazenamento, empresa_transportadora, empresa_destinadora, observacoes, comprovante }
--- Response: { id, usuario_id, ... }
-
+--      Body: { tipo_residuo, classe, quantidade, unidade, data_geracao,
+--              tipo_destinacao, forma_armazenamento, empresa_transportadora,
+--              empresa_destinadora, observacoes, comprovante }
+--
 -- GET /api/dashboard.php
--- Headers: Authorization: Bearer [token]
--- Response: { residuos_gerados_kg, destinacao_adequada_percent, total_registros, consumo_agua_m3 }
-
+--      Response: { cards: { residuos_gerados_kg, destinacao_adequada_percent, consumo_agua_m3 } }
+--
 -- ========================================
 -- VERIFICAÇÕES (Execute após inserir dados)
 -- ========================================
 
--- Ver estrutura da tabela usuarios
+-- Ver estrutura
 -- DESCRIBE usuarios;
-
--- Ver estrutura da tabela residuos
 -- DESCRIBE residuos;
 
--- Ver todos os usuários
+-- Ver dados
 -- SELECT * FROM usuarios;
-
--- Ver todos os resíduos
 -- SELECT * FROM residuos;
 
--- Ver resíduos com nome do usuário
--- SELECT r.*, u.nome as usuario_nome
--- FROM residuos r
--- JOIN usuarios u ON r.usuario_id = u.id;
-
--- Contar resíduos por situação
--- SELECT situacao, COUNT(*) as total FROM residuos GROUP BY situacao;
-
--- ========================================
--- OPÇÕES DE TIPOS NO FRONTEND
--- ========================================
-
--- Tipos de Resíduo: Papelão, Plástico, Óleo usado, Metal, Vidro, Madeira, etc.
--- Classe: I (Perigoso), II-A (Não inerte), II-B (Inerte)
--- Unidades: kg, L, t, m³
--- Forma de Armazenamento: Tambor, Big bag, Caçamba, Caixa
--- Tipo de Destinação: Reciclagem, Tratamento, Aterro sanitário, Incineração
--- Situação: Adequado, Atenção, Pendente
-
--- ========================================
--- CREDENCIAIS DE TESTE
--- ========================================
-
--- Admin
--- Email: raphael@industriamodelo.com.br
--- Senha: 123456
--- Role: admin
-
--- Usuário
--- Email: teste@industriamodelo.com.br
--- Senha: 123456
--- Role: user
+-- Ver com join
+-- SELECT r.*, u.nome FROM residuos r JOIN usuarios u ON r.usuario_id = u.id;
